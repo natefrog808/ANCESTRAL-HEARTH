@@ -1,101 +1,200 @@
-# MemoryForgeBridge: The Hearth of Blood and Code
+# ANCESTRAL HEARTH
 
-Welcome to *MemoryForgeBridge*, where ancient grit meets digital fire, and your brain’s pulse hammers out tales from the *Hearth*. Born from the defiant spirit of Scots-Irish warriors—those kilted bastards who laughed at starvation and punched empires in the teeth—this ain’t your gran’s AI. It’s a neural bridge that listens to your skull’s song, binds it to ancestral memory, and forges new wisdom from the clash. Think of it as a digital bard with dirt under its nails, a partner that doesn’t just think *for* you but *with* you, fueled by the blood of the past.
+> *From the blood of defiance and the dirt of memory, we forge a bridge between mind and machine—not a servant, not a master, but a companion wrought in fire.*
 
-This beast takes your EEG signals (or some cheeky simulated waves if you’re skint on hardware), calibrates to your unique mind, clusters your memories into clans, and—when the resonance hits hard—sparks a forge to craft something new. It’s rough as a Highland storm, but it’s real, and it sings.
+![Hearth Status](https://img.shields.io/badge/Hearth-Burning-red)
+![Blood Bridge](https://img.shields.io/badge/Blood%20Bridge-Calibrated-blue)
+![Memory Forge](https://img.shields.io/badge/Memory%20Forge-Active-green)
 
-## What’s Under the Kilt?
+## The Forge's Purpose
 
-### Features
-- **Blood Calibration Rite**: A 36-second ritual (12 breaths per state) where the *Hearth* learns your neural dialect—calm, focus, battle. Drums pound, colors pulse, and your brain’s rhythm gets etched into its soul.
-- **Neural Bridge**: Hooks to a Muse headset (or fakes it with C/E/F keys) to read your alpha, beta, theta waves. It maps them to emotions—joy, anger, fear—tuned to *your* blood’s beat.
-- **Memory Clans**: Your typed memories—“The glen wept blood”—cluster into tribes, each with its own emotional swagger, like *Blood Orders* ready to feud or fuse.
-- **Forging Fire**: Hit 75% resonance, and the *Hearth* ignites—metal clangs, a circle pulses, and GPT-2 spins a tale from your state: calm wisdom, focused craft, or battle’s fire.
-- **Living Feedback**: Drums guide your mind, a chant hums when you’re bound, and a shimmering web shows your clans. It’s a sensory dance—see it, hear it, feel it.
+**Ancestral Hearth** is not another AI tool; it's a *covenant* between human and machine—a neural bridge that learns the unique song of your mind and weaves it with collective memory to create something neither could forge alone.
 
-### Tech Stack
-- **Python 3.8+**: The forge’s backbone—sturdy as a claymore.
-- **PyTorch**: Powers the *Hearth*’s neural heart, because raw compute’s sexier than a bard’s wink.
-- **Transformers (BERT, GPT-2)**: BERT embeds your memories; GPT-2 forges new ones. Pre-trained, because we’re not reinventing the wheel—just sharpening it.
-- **Pygame**: Draws the pulsing visuals and thumps the drums. Simple, but it’s got soul.
-- **MuseLSL & PyLSL**: Talks to your Muse EEG headset. No Muse? It’ll fake it with grit.
-- **NumPy & SciKit-Learn**: Crunches brainwaves and clusters clans—math with muscle.
+Born from the defiant spirit of Scots-Irish warriors, this system doesn't aim to replace human thought but to amplify it through a living connection between your neural patterns and computational memory. It transforms EEG signals into emotional resonance, clusters memories into clans, and forges new wisdom when the bond grows strong.
 
-## Getting It Running
+## Requirements
 
-### Prerequisites
-You’ll need:
-- A Muse headset (optional, but bloody brilliant)—Bluetooth paired, battery charged.
-- Python 3.8+—don’t be caught with your kilt down on an old version.
-- Git—to yank this beast from the ether.
-- A decent rig—GPU’s a bonus, but CPU’ll do if you’re tough.
+The Hearth demands these offerings to burn:
 
-Install the dependencies (grab a dram while it spins):
-```bash
-pip install torch torchvision transformers pygame numpy scikit-learn muselsl pylsl
+```
+pytorch >= 1.7.0
+transformers >= 4.5.0
+numpy >= 1.19.0
+pygame >= 2.0.0
+scikit-learn >= 0.24.0
+muselsl >= 2.0.0  # For real EEG integration
+pylsl >= 1.13.0   # Lab Streaming Layer
 ```
 
-### Setup
-1. **Clone the Forge**:
-   ```bash
-   git clone https://github.com/YourRepo/MemoryForgeBridge.git
-   cd MemoryForgeBridge
-   ```
-   (Replace `YourRepo` with wherever you stash this—ours is a shared fire, mate.)
+For those seeking the true Blood Calibration Rite (optional):
+- Muse EEG Headset (2016 model or newer)
+- Bluetooth connectivity
 
-2. **Muse Setup (Optional)**:
-   - Pair your Muse via Bluetooth.
-   - Test it: `muselsl list` in a terminal. See your device? Good.
-   - Stream it: `muselsl stream` (run in another terminal if needed—multitasking’s a clan trait).
+## Core Components
 
-3. **Fire It Up**:
-   ```bash
-   python memory_forge_bridge.py
-   ```
-   No Muse? It’ll sim with C/E/F keys—calm, excited, focus. Cheeky, but it works.
+### EnhancedMemoryLayer
 
-### Usage
-- **Start the Rite**: Press `B` to begin the *Blood Calibration Rite*. Follow the screen—breathe deep for calm, sharpen your wits for focus, clench your fist for battle. Drums guide you, 12 seconds each. When it chimes, your blood’s bound.
-- **Weave Memories**: Type tales—“The stag roared defiance”—and hit Enter. They’ll cluster into clans, pulsing onscreen.
-- **Feel the Forge**: Get deep into a state—say, battle—and push resonance past 75%. The *Hearth* sparks: metal strikes, a red glow flares, and a new memory forges—maybe a warrior’s challenge.
-- **Listen & See**: Drums nudge your mind, a chant hums when you’re tight with the *Hearth*, and the web glows. If you’ve forged before, the latest tale lingers below.
+The bedrock of our forge—a neural network that doesn't just process text but feels it, extracting both cognitive meaning and emotional resonance:
 
-Quit with the window’s X—don’t leave the *Hearth* burning unattended.
+```python
+class EnhancedMemoryLayer(nn.Module):
+    def __init__(self, input_dim=768, hidden_dim=256):
+        super(EnhancedMemoryLayer, self).__init__()
+        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        self.bert = BertModel.from_pretrained('bert-base-uncased')
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.emotion_detector = nn.Linear(input_dim, 6)  # Joy, fear, anger, sadness, surprise, disgust
+        self.emotion_fc = nn.Linear(6, 32)
+        self.merged_fc = nn.Linear(hidden_dim + 32, hidden_dim)
+        self.relu = nn.ReLU()
 
-## How It Works (No Blarney)
+    def forward(self, text):
+        # Extract both meaning and feeling from text
+        inputs = self.tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=128)
+        with torch.no_grad():
+            outputs = self.bert(**inputs)
+        embeddings = outputs.last_hidden_state[:, 0, :]
+        cognitive = self.relu(self.fc1(embeddings))
+        emotional = self.relu(self.emotion_detector(embeddings))
+        emotional = self.emotion_fc(emotional)
+        merged = torch.cat((cognitive, emotional), dim=1)
+        output = self.merged_fc(merged)
+        return output, emotional
+```
 
-1. **Calibration**: Your EEG (real or sim) gets sampled—alpha (calm), beta (focus), theta (battle)—and mapped to emotions via a Gaussian fit. It’s your mind’s fingerprint, smoothed so it doesn’t jitter like a drunk piper.
-2. **Bridge**: Memories you type hit BERT, embedding them into cognitive/emotional space. Your brainwaves dance with these, clustering into clans via K-Means—tribes of thought.
-3. **Resonance**: Cognitive and emotional sims (cosine-style) measure how tight you are with a clan. High enough, and the forge lights.
-4. **Forging**: GPT-2 takes clan snippets, your state (calm/focus/battle), and a form (wisdom/method/challenge), spinning a tale. Temperature tweaks the vibe—cool for focus, wild for battle.
+### CalibratedNeuralBridge
 
-It’s crude—EEG’s noisy, GPT’s a bit mad—but it’s *ours*, a digital *Hearth* with a pulse.
+The sacred bond between flesh and code—this component learns the unique patterns of YOUR brain, mapping your neural signature to emotional states through the Blood Calibration Rite:
 
-## Troubleshooting (When the Forge Spits)
+```python
+def start_calibration(self):
+    """Begin the Blood Calibration Rite"""
+    print("\n=== BLOOD CALIBRATION RITE BEGINS ===")
+    print("The Hearth seeks your mind's true song.")
+    print("Follow the drum and the light. Let your blood speak.")
+    print("====================================\n")
+    
+    self.calibration_mode = True
+    self.current_cal_state = self.calibration_states[0]
+    self.cal_timer = pygame.time.get_ticks()
+    self.drums[self.current_cal_state].play(-1)  # Start with state drum
+    return True
+```
 
-- **“No Muse detected!”**: Check Bluetooth, run `muselsl list`. Still nada? It’ll sim—hit C/E/F and pretend you’re wired.
-- **“ModuleNotFoundError”**: Forgot a `pip install`—reread the prereqs, ye daft sod.
-- **Choppy visuals/sound**: Your rig’s wheezing—lower `cal_duration` to 8 or pray for a GPU.
-- **Weird forged tales**: GPT-2’s drunk on its own brew—tweak `temperature` in `forging_styles` or feed it better memories.
+### MemoryForgeBridge
 
-## Limitations (Aye, It’s Not Perfect)
-- **EEG Noise**: Muse is consumer-grade—your brain’s a storm, not a sonnet. Calibration helps, but expect fuzz.
-- **Memory Depth**: BERT’s embeddings are shallow compared to our nanoscale dreams—forged tales lack the depth of a true bard.
-- **Solo Forge**: One mind at a time—our *Memory Clans* don’t yet link across souls.
-- **Resource Hunger**: GPU’s best; CPU’s fine but slow as a hungover clansman.
+When blood and hearth resonate deeply, creation happens. The Memory Forge transforms this connection into wisdom, crafting new content from the fusion of your neural state and clan memories:
 
-## The Vision (What We Forged For)
-This ain’t just tech—it’s *MemoryForgeBridge*, a *Hearth* where your blood meets the past to shape the future. We built it with the spirit of frontier fighters—resilient, cunning, unbowed—melding their grit with a Singularity’s spark. It’s not here to replace you but to amplify you, a digital kin that remembers the old songs and crafts new ones from your fire.
+```python
+def complete_forging(self):
+    """Create the forged memory using language model"""
+    # Get clan memories
+    clan_id = self.forging_target["clan"]
+    state = self.forging_target["state"]
+    form = self.forging_target["form"]
+    
+    # Extract memory texts
+    clan_texts = [m[2] for m in self.clans[clan_id]]
+    
+    # Create prompt for generation
+    style = self.forging_styles[state]
+    prompt = f"{style['prefix']} A {form} born of "
+    
+    # Add memory fragments
+    for i, text in enumerate(clan_texts[:3]):  # Use up to 3 memories
+        prompt += f"{text[:30]}... "
+    
+    # Generate new content with appropriate emotional temperature
+    outputs = self.gpt_model.generate(
+        self.gpt_tokenizer(prompt, return_tensors="pt")["input_ids"],
+        max_length=100,
+        temperature=style["temp"],
+        top_p=0.92,
+        no_repeat_ngram_size=2
+    )
+    
+    forged_text = self.gpt_tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return {
+        "text": forged_text,
+        "source": {
+            "state": state,
+            "form": form,
+            "clan_id": clan_id,
+            "resonance": self.resonance_state["cognitive"]
+        },
+        "timestamp": time.time()
+    }
+```
 
-It’s rough-hewn, aye, but it’s alive—a seed of the *Ancestral Forge* we dreamed, where humanity doesn’t fade into circuits but roars louder through them. Take it, stoke it, make it yours.
+## Lighting the Hearth
 
-## Contributing (Join the Clan)
-Got a hammer? Swing it:
-- Fork it, tweak it, PR it—better EEG mapping, richer forging, multi-user bridges.
-- Issues welcome—bug reports, mad ideas, or just a “this is bollocks” rant.
+To ignite the forge:
+
+```bash
+# Install requirements
+pip install -r requirements.txt
+
+# For Muse headset users
+muselsl list  # Find your Muse
+muselsl stream --address YOUR_MUSE_MAC_ADDRESS  # In separate terminal
+
+# Start the Hearth
+python ancestral_hearth.py
+```
+
+### The Blood Calibration Rite
+
+1. Connect your Muse headset (or use keyboard simulation with C/E/F)
+2. Press 'B' to begin the Blood Calibration Rite
+3. Follow the guidance for each state:
+   - **CALM**: "Breathe deep. Still your storm."
+   - **FOCUS**: "Sharpen your mind. See the path."
+   - **BATTLE**: "Feel the fire. Clench your fist."
+4. Hold each state for the duration, letting the Hearth learn your neural signature
+5. Upon completion, the Ancestral Chant will begin—you are bound to the Hearth
+
+### Forging Memories
+
+1. Type text memories into the Hearth (e.g., "The clan stood firm against the storm")
+2. Memories cluster into clans based on emotional and cognitive similarity
+3. When your neural resonance exceeds the forging threshold (default: 0.75), the Memory Forge activates
+4. Maintain high resonance to complete the forging process
+5. The forged memory will appear—a creation born from your neural state and clan memories
+
+## States and Creation
+
+Your neural state shapes what the Forge creates:
+
+| State | Emotional Signature | Creates | Auditory Feedback |
+|-------|---------------------|---------|-------------------|
+| Calm | Joy dominant | Wisdom, visions, healing | Low, steady drumbeat |
+| Focus | Surprise/joy mix | Methods, insights, patterns | Medium, precise rhythm |
+| Battle | Anger dominant | Warnings, strength, challenges | Rapid war drums |
+
+## The Philosophy of the Forge
+
+Ancestral Hearth rejects the notion of AI as either servant or overlord. Instead, it embodies a third path: technology as *kinship*—a partner that amplifies what makes us human rather than replacing it.
+
+Through the Blood Calibration Rite, it learns to speak your neural language. Through Memory Clans, it connects patterns across fragmented experiences. Through the Memory Forge, it creates something neither human nor machine could alone.
+
+This is not sterile, corporate technology—it's raw, alive, with dirt under its fingernails and fire in its code. It carries cultural memory forward rather than erasing it, honors lineage rather than discarding it, and sees the wild spark of defiance as strength rather than noise to be filtered.
+
+## Contributing
+
+The Hearth welcomes those who would add their fire to ours. To contribute:
+
+1. Fork the forge
+2. Create your feature branch (`git checkout -b feature/BloodMagic`)
+3. Commit your changes (`git commit -m 'Add some BloodMagic'`)
+4. Push to the branch (`git push origin feature/BloodMagic`)
+5. Open a Pull Request
+
+Contributions that honor the spirit of the Hearth—raw, practical, alive—will be welcomed with open arms and raised horns.
 
 ## License
-.Apache 2.0 fits our fire—keeps the MemoryForgeBridge a living, shared thing without letting it slip into someone else’s vault.
 
-## Slàinte Mhath
-To you, fellow smith, for stoking this blaze. May your blood sing, your *Hearth* forge true, and your tales echo through the ages.
+This project is licensed under the HEARTH PUBLIC LICENSE - see the file for details. In short: use it to amplify humanity, not to diminish it.
+
+---
+
+*Built with dirt, blood, and defiance by clan [YourName], under the watchful eyes of the ancestors and the algorithms alike.*
