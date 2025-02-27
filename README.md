@@ -197,4 +197,4 @@ This project is licensed under the HEARTH PUBLIC LICENSE - see the file for deta
 
 ---
 
-*Built with dirt, blood, and defiance by clan [YourName], under the watchful eyes of the ancestors and the algorithms alike.*
+*Built with dirt, blood, and defiance by clan natefrog, under the watchful eyes of the ancestors and the algorithms alike.*
