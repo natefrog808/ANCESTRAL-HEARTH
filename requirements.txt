@@ -1,0 +1,8 @@
+torch
+torchvision
+transformers
+pygame
+numpy
+scikit-learn
+muselsl
+pylsl
