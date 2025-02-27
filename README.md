@@ -139,7 +139,7 @@ muselsl list  # Find your Muse
 muselsl stream --address YOUR_MUSE_MAC_ADDRESS  # In separate terminal
 
 # Start the Hearth
-python ancestral_hearth.py
+python src/ancestral_hearth.py
 ```
 
 ### The Blood Calibration Rite
